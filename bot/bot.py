@@ -95,10 +95,11 @@ async def handle_update(update: dict):
         async with httpx.AsyncClient() as client:
             await send_message(client, chat_id, "Нажми кнопку чтобы открыть приложение 👇",
                 reply_markup={
-                    "inline_keyboard": [[{
+                    "keyboard": [[{
                         "text": "🍺 Открыть Bar App",
                         "web_app": {"url": WEBAPP_URL},
-                    }]]
+                    }]],
+                    "resize_keyboard": True,
                 })
         return
 
