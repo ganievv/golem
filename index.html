@@ -18,8 +18,8 @@
             <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
             <path d="m16.5 16.5 3.5 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
           </svg>
-          <input type="text" id="search" placeholder="Поиск напитка..." autocomplete="off">
-          <button id="search-clear" class="search-clear" style="display:none" aria-label="Очистить">
+          <input type="text" id="search" data-i18n-ph="search_ph" placeholder="Поиск напитка..." autocomplete="off">
+          <button id="search-clear" class="search-clear" style="display:none">
             <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
               <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
@@ -31,27 +31,35 @@
 
     <!-- ═══ TAB: ORDER ═══ -->
     <div id="tab-order" class="tab-content">
+      <div id="edit-banner" class="edit-banner" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" width="15" height="15">
+          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span id="edit-banner-text"></span>
+        <button id="edit-cancel-btn" class="edit-cancel" data-i18n="btn_cancel">Отмена</button>
+      </div>
       <div class="order-header">
         <div class="order-inputs">
           <label class="input-label">
-            <span class="input-title">Столик</span>
-            <input type="text" id="table-number" placeholder="Номер" inputmode="numeric">
+            <span class="input-title" data-i18n="label_table">Столик</span>
+            <input type="text" id="table-number" data-i18n-ph="ph_table" placeholder="Номер" inputmode="numeric">
           </label>
           <label class="input-label">
-            <span class="input-title">Имя</span>
-            <input type="text" id="customer-name" placeholder="Необязательно">
+            <span class="input-title" data-i18n="label_name">Имя</span>
+            <input type="text" id="customer-name" data-i18n-ph="ph_name" placeholder="Необязательно">
           </label>
         </div>
       </div>
       <div id="order-items"></div>
       <div id="order-footer" style="display:none">
         <div class="order-total-row">
-          <span class="total-label">Итого</span>
+          <span class="total-label" data-i18n="total">Итого</span>
           <span id="total-price" class="total-amount">0.00€</span>
         </div>
         <div class="order-actions">
-          <button id="clear-order-btn" class="btn-clear">Очистить</button>
-          <button id="save-order-btn" class="btn-save">💾 Сохранить заказ</button>
+          <button id="clear-order-btn" class="btn-clear" data-i18n="btn_clear">Очистить</button>
+          <button id="save-order-btn" class="btn-save" data-i18n="btn_save">💾 Сохранить заказ</button>
         </div>
       </div>
     </div>
@@ -60,9 +68,30 @@
     <div id="tab-orders" class="tab-content">
       <div class="orders-toolbar" id="orders-toolbar" style="display:none">
         <span class="orders-toolbar-title" id="orders-count-label"></span>
-        <button id="clear-all-orders-btn" class="btn-clear-all">Удалить все</button>
+        <button id="clear-all-orders-btn" class="btn-clear-all" data-i18n="btn_clear_all">Удалить все</button>
       </div>
       <div id="saved-orders-list"></div>
+      <button id="grand-toggle-btn" class="grand-toggle-btn" style="display:none" aria-label="€">€</button>
+      <div id="grand-total-bar" class="grand-total-bar" style="display:none">
+        <div class="grand-total-row">
+          <span class="grand-total-label" data-i18n="grand_orders">Все заказы</span>
+          <span id="grand-total-amount" class="grand-total-amount">0.00€</span>
+        </div>
+        <div class="grand-total-row grand-tips-row" id="grand-tips-row" style="display:none">
+          <span class="grand-total-label" data-i18n="grand_tips">Чаевые</span>
+          <span id="grand-tips-amount" class="grand-tips-amount">0.00€</span>
+        </div>
+        <div class="grand-export-row">
+          <button id="export-orders-btn" class="btn-export-orders">
+            <svg viewBox="0 0 24 24" fill="none" width="16" height="16">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <polyline points="7 10 12 15 17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span data-i18n="grand_export">Экспорт заказов</span>
+          </button>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -73,7 +102,7 @@
       <svg viewBox="0 0 24 24" fill="none">
         <path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
-      <span>Меню</span>
+      <span data-i18n="nav_menu">Меню</span>
     </button>
     <button class="nav-btn" data-tab="order">
       <div class="nav-icon-wrap">
@@ -83,7 +112,7 @@
         </svg>
         <span class="badge" id="order-badge" style="display:none">0</span>
       </div>
-      <span>Заказ</span>
+      <span data-i18n="nav_order">Заказ</span>
     </button>
     <button class="nav-btn" data-tab="orders">
       <div class="nav-icon-wrap">
@@ -93,8 +122,9 @@
         </svg>
         <span class="badge" id="orders-badge" style="display:none">0</span>
       </div>
-      <span>Заказы</span>
+      <span data-i18n="nav_orders">Заказы</span>
     </button>
+    <button id="lang-btn" class="lang-btn">DE</button>
   </nav>
 
   <script src="app.js"></script>
